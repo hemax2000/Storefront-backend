@@ -13,7 +13,7 @@ export class OrderModel {
   async getOrders(userId: number): Promise<OrderType[]> {
     try {
       const conn = await client.connect();
-      const sql = "SELECT * FROM order WHERE user_id=$1";
+      const sql = "SELECT * FROM orders WHERE user_id=$1";
       const result = await conn.query(sql, [userId]);
       conn.release();
 
@@ -28,7 +28,7 @@ export class OrderModel {
     try {
       const status = "complete";
       const conn = await client.connect();
-      const sql = `SELECT * FROM order WHERE user_id = ${userId} AND status = $1`;
+      const sql = `SELECT * FROM orders WHERE user_id = ${userId} AND status = $1`;
       const result = await conn.query(sql, [status]);
       conn.release();
 
@@ -45,7 +45,7 @@ export class OrderModel {
 
       const conn = await client.connect();
       const sql =
-        "INSERT INTO order (product_id, quantity, user_id, status) VALUES($1, $2, $3, $4)";
+        "INSERT INTO orders (product_id, quantity, user_id, status) VALUES($1, $2, $3, $4)";
       const result = await conn.query(sql, [
         product_id,
         quantity,
@@ -64,7 +64,9 @@ export class OrderModel {
   async updateOrderStatus(status: string, orderId: number): Promise<OrderType> {
     try {
       const conn = await client.connect();
-      const sql = "UPDATE order SET status=$1 WHERE id=$2";
+      const sql = "UPDATE orders SET status=$1 WHERE id=$2";
+      console.log(status);
+      console.log(orderId);
       const result = await conn.query(sql, [status, orderId]);
       conn.release();
 
@@ -76,7 +78,7 @@ export class OrderModel {
 
   async deleteOrder(id: number): Promise<OrderType> {
     try {
-      const sql = "DELETE FROM order WHERE id=$1";
+      const sql = "DELETE FROM orders WHERE id=$1";
       const conn = await client.connect();
       const result = await conn.query(sql, [id]);
       conn.release();

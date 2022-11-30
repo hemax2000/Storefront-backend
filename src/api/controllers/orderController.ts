@@ -1,8 +1,8 @@
 import { Response, Request } from "express";
-import { Order } from "../models/order";
+import { OrderModel } from "../models/order";
 import { OrderType } from "../models/order";
 
-const order: Order = new Order();
+const order: OrderModel = new OrderModel();
 
 // Get all orders by user id
 export const getAllOrders = async (req: Request, res: Response) => {
@@ -23,10 +23,10 @@ export const getAllCompletedOrders = async (req: Request, res: Response) => {
 
 // Update order's status.
 export const updateStatus = async (req: Request, res: Response) => {
-  const status = req.query.status as string;
-  const orderId = parseInt(req.query.orderId as string);
+  const status = req.body.status as string;
+  const orderId = parseInt(req.params.id as string);
 
-  if (orderId && ["active", "complete"].includes(status)) {
+  if (orderId && (status === "complete" || status === "active")) {
     const updatedOrder: OrderType = await order.updateOrderStatus(
       status,
       orderId

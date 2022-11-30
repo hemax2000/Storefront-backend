@@ -12,6 +12,6 @@ export const OrderRouter: Router = Router();
 
 OrderRouter.get("/:user_id", auth, getAllOrders);
 OrderRouter.get("/completed/:user_id", auth, getAllCompletedOrders);
-OrderRouter.put("/", auth, updateStatus);
+OrderRouter.put("/:id", auth, updateStatus);
 OrderRouter.delete("/:id", auth, deleteOrder);
 OrderRouter.post("/", auth, create);
