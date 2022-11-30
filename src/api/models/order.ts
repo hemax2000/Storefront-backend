@@ -8,7 +8,7 @@ export type OrderType = {
   status: string;
 };
 
-export class Order {
+export class OrderModel {
   // select all orders for a user
   async getOrders(userId: number): Promise<OrderType[]> {
     try {
