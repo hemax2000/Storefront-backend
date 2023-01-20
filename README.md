@@ -39,3 +39,56 @@ Navigate to the root directory and run the command:
 ## dotenv file
 ![image](https://user-images.githubusercontent.com/95032871/213775837-f2c27306-2cb7-494c-9550-0bd8fa6d80c6.png)
 
+## Authorization
+
+tokens are passed like this:
+
+Authorization =>  Bearer TOKEN
+
+## URLS
+- create user: [post] http://localhost:3000/users 
+
+body: {
+    "firstname":"ibrahim",
+    "lastname":"othman",
+    "password":"12345678"
+}
+
+- get all users: [get] http://localhost:3000/users
+
+----------------------------------------------------
+
+- create product: [post] http://localhost:3000/products
+
+body: {
+    "name":"iphone",
+    "price":"22",
+    "category":"phhone"
+}
+
+- get all products: [get] http://localhost:3000/products
+
+- get product by id: [get] http://localhost:3000/products/1
+
+- delete product: [delete] http://localhost:3000/products/1
+
+-------------------------------------------------------------
+
+- create order: [post] http://localhost:3000/orders
+
+body: {
+    "product_id":"2",
+    "quantity":"2",
+    "user_id":"1",
+    "status":"active"
+}
+
+- mark order as complete: [put] http://localhost:3000/orders/1
+
+body: {
+    "status":"complete"
+}
+
+- get completed order bu user id: http://localhost:3000/orders/completed/1
+
+- delete product: [delete] http://localhost:3000/orders/1
