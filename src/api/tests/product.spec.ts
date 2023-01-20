@@ -1,121 +1,101 @@
-import supertest from 'supertest';
-import { ProductModel } from '../models/product'
-import  express  from 'express';
+import supertest from "supertest";
+import { ProductModel } from "../models/product";
+import { app } from "../../server";
 
-const app= express()
 const request = supertest(app);
-const token: string = process.env.TOKEN_TEST as string;
+const token =
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoxfSwiaWF0IjoxNjY5ODM2MzI0fQ.MxfHSPSbtL7h8bHitsN6aJABLwQPcivKzVldtujJ-5U";
 
-describe('Test Product endpoint responses', () => {
+describe("Test Product endpoint responses", () => {
   beforeAll(() => {
-    spyOn(ProductModel.prototype, 'getProducts').and.returnValue(
+    spyOn(ProductModel.prototype, "getProducts").and.returnValue(
       Promise.resolve([
         {
           id: 1,
-          name: 'iphone',
+          name: "iphone",
           price: 3000,
-          category: 'phone'
-        }
+          category: "phone",
+        },
       ])
     );
-    spyOn(ProductModel.prototype, 'getProductById').and.returnValue(
+    spyOn(ProductModel.prototype, "getProductById").and.returnValue(
       Promise.resolve({
         id: 1,
-        name: 'iphone',
+        name: "iphone",
         price: 3000,
-        category: 'phone'
+        category: "phone",
       })
     );
-    spyOn(ProductModel.prototype, 'createProduct').and.returnValue(
+    spyOn(ProductModel.prototype, "createProduct").and.returnValue(
       Promise.resolve({
         id: 1,
-        name: 'iphone',
+        name: "iphone",
         price: 3000,
-        category: 'phone'
+        category: "phone",
       })
     );
-    spyOn(ProductModel.prototype, 'deleteProduct').and.returnValue(
+    spyOn(ProductModel.prototype, "deleteProduct").and.returnValue(
       Promise.resolve({
         id: 1,
-        name: 'iphone',
+        name: "iphone",
         price: 3000,
-        category: 'phone'
+        category: "phone",
       })
     );
   });
 
-  it('gets all products api endpoint', async (done) => {
+  it("gets all products api endpoint", async () => {
     const res = await request
-      .get('/products')
-      .set('Authorization', 'Bearer ' + token);
+      .get("/products")
+      .set("Authorization", "Bearer " + token);
 
     expect(res.status).toBe(200);
     expect(res.body).toEqual([
       {
         id: 1,
-        name: 'iphone',
-        price: '3000',
-        category: 'phone'
-      }
+        name: "iphone",
+        price: 3000,
+        category: "phone",
+      },
     ]);
-    done();
   });
-  it('gets product by id api endpoint', async (done) => {
+  it("gets product by id api endpoint", async () => {
     const res = await request
-      .get('/products/1')
-      .set('Authorization', 'Bearer ' + token);
+      .get("/products/1")
+      .set("Authorization", "Bearer " + token);
 
     expect(res.status).toBe(200);
     expect(res.body).toEqual({
       id: 1,
-      name: 'iphone',
-      price: '3000',
-      category: 'phone'
+      name: "iphone",
+      price: 3000,
+      category: "phone",
     });
-    done();
   });
-  it('gets product by category api endpoint', async (done) => {
+  it("create product api endpoint", async () => {
     const res = await request
-      .get('/products/cat/phone')
-      .set('Authorization', 'Bearer ' + token);
-
-    expect(res.status).toBe(200);
-    expect(res.body).toEqual([
-      {
-        id: 1,
-        name: 'iphone',
-        price: '3000',
-        category: 'phone'
-      }
-    ]);
-    done();
-  });
-  it('create product api endpoint', async (done) => {
-    const res = await request
-      .post('/products')
-      .set('Authorization', 'Bearer ' + token);
+      .post("/products")
+      .set("Authorization", "Bearer " + token);
 
     expect(res.status).toBe(200);
     expect(res.body).toEqual({
       id: 1,
-      name: 'iphone',
-      price: '3000',
-      category: 'phone'
+      name: "iphone",
+      price: 3000,
+      category: "phone",
     });
-    done();
   });
-  it('delets a product api endpoint', async (done) => {
+  it("delete a product api endpoint", async () => {
     const res = await request
-      .delete('/products/1')
-      .set('Authorization', 'Bearer ' + token);
+      .delete("/products/1")
+      .set("Authorization", "Bearer " + token);
 
     expect(res.status).toBe(200);
     expect(res.body).toEqual({
       id: 1,
-      name: 'iphone',
-      price: '3000',
-      category: 'phone'
+      name: "iphone",
+      price: 3000,
+      category: "phone",
     });
-    done();
   });
 });

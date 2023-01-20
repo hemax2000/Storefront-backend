@@ -2,7 +2,7 @@ import client from "../database";
 import bcrypt from "bcrypt";
 
 export type UserType = {
-  id?: string;
+  id?: number;
   firstname: string;
   lastname: string;
   password: string;
@@ -22,7 +22,7 @@ export class UserModel {
       throw new Error(`Could not get all users. Error: ${err}`);
     }
   }
-  async create(user: UserType): Promise<UserType> {
+  async createUser(user: UserType): Promise<UserType> {
     try {
       const conn = await client.connect();
       const sql =

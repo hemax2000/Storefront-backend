@@ -2,7 +2,7 @@ import express, { Request, Response } from "express";
 import bodyParser from "body-parser";
 import routes from "./api/routes";
 
-const app: express.Application = express();
+export const app: express.Application = express();
 const address = "localhost:3000";
 
 app.use(bodyParser.json());

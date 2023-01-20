@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
-    "target": "es6",
-    "module": "commonjs",
+    "target": "es2021",
+    "module": "commonjs",                 
     "lib": ["ES6", "DOM"],
     "outDir": "./dist",
     "rootDir": "./src",
@@ -11,6 +11,6 @@
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true
   },
-  "include": ["src/**/*.ts", "index.ts","./types/types.d.ts","dist/**/*",".eslintrc.js"],
-  "exclude": ["node_modules", "spec", "build","migrations"]
+  "include": ["src/**/*",".eslintrc.js"],
+  "exclude": ["node_modules"]
 }

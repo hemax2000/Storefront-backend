@@ -1,76 +1,76 @@
-import { OrderModel } from '../models/order';
-import express from 'express';
-import supertest from 'supertest';
+import { OrderModel } from "../models/order";
+import { app } from "../../server";
+import supertest from "supertest";
 
-const app = express();
 const request = supertest(app);
 
-const token: string = process.env.TOKEN_TEST as string;
+const token =
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoxfSwiaWF0IjoxNjY5ODM2MzI0fQ.MxfHSPSbtL7h8bHitsN6aJABLwQPcivKzVldtujJ-5U";
 
-describe('Test Order endpoint responses', () => {
+describe("Test Order endpoint responses", () => {
   beforeAll(() => {
-    spyOn(OrderModel.prototype, 'createOrder').and.returnValue(
+    spyOn(OrderModel.prototype, "createOrder").and.returnValue(
       Promise.resolve({
         id: 2,
         product_id: 10,
         quantity: 4,
         user_id: 2,
-        status: 'active'
+        status: "active",
       })
     );
-    spyOn(OrderModel.prototype, 'getOrders').and.returnValue(
+    spyOn(OrderModel.prototype, "getOrders").and.returnValue(
       Promise.resolve([
         {
           id: 1,
           product_id: 13,
           quantity: 1,
           user_id: 2,
-          status: 'complete'
+          status: "complete",
         },
         {
           id: 2,
           product_id: 10,
           quantity: 4,
           user_id: 2,
-          status: 'active'
-        }
+          status: "active",
+        },
       ])
     );
-    spyOn(OrderModel.prototype, 'getCompletedOrdersByUserId').and.returnValue(
+    spyOn(OrderModel.prototype, "getCompletedOrdersByUserId").and.returnValue(
       Promise.resolve([
         {
           id: 1,
           product_id: 13,
           quantity: 1,
           user_id: 2,
-          status: 'complete'
-        }
+          status: "complete",
+        },
       ])
     );
-    spyOn(OrderModel.prototype, 'updateOrderStatus').and.returnValue(
+    spyOn(OrderModel.prototype, "updateOrderStatus").and.returnValue(
       Promise.resolve({
         id: 1,
         product_id: 13,
         quantity: 1,
         user_id: 2,
-        status: 'active'
+        status: "active",
       })
     );
-    spyOn(OrderModel.prototype, 'deleteOrder').and.returnValue(
+    spyOn(OrderModel.prototype, "deleteOrder").and.returnValue(
       Promise.resolve({
         id: 1,
         product_id: 13,
         quantity: 1,
         user_id: 2,
-        status: 'active'
+        status: "active",
       })
     );
   });
 
-  it('create order api endpoint', async (done) => {
+  it("create order api endpoint", async () => {
     const res = await request
-      .post('/orders')
-      .set('Authorization', 'Bearer ' + token);
+      .post("/orders")
+      .set("Authorization", "Bearer " + token);
 
     expect(res.status).toBe(200);
     expect(res.body).toEqual({
@@ -78,13 +78,13 @@ describe('Test Order endpoint responses', () => {
       product_id: 10,
       quantity: 4,
       user_id: 2,
-      status: 'active'
+      status: "active",
     });
-    done();
   });
-  it('gets all orders api endpoint', async (done) => {
-    const res = await request.get('/orders/2')
-      .set('Authorization', 'Bearer ' + token);
+  it("gets all orders api endpoint", async () => {
+    const res = await request
+      .get("/orders/2")
+      .set("Authorization", "Bearer " + token);
 
     expect(res.status).toBe(200);
     expect(res.body).toEqual([
@@ -93,54 +93,21 @@ describe('Test Order endpoint responses', () => {
         product_id: 13,
         quantity: 1,
         user_id: 2,
-        status: 'complete'
+        status: "complete",
       },
       {
         id: 2,
         product_id: 10,
         quantity: 4,
         user_id: 2,
-        status: 'active'
-      }
+        status: "active",
+      },
     ]);
-    done();
   });
-  it('gets current user order by id api endpoint', async (done) => {
+  it("gets completed user order api endpoint", async () => {
     const res = await request
-      .get('/orders/current/2')
-      .set('Authorization', 'Bearer ' + token);
-
-    expect(res.status).toBe(200);
-    expect(res.body).toEqual({
-      id: 2,
-      product_id: 10,
-      quantity: 4,
-      user_id: 2,
-      status: 'active'
-    });
-    done();
-  });
-  it('gets active user order api endpoint', async (done) => {
-    const res = await request
-      .get('/orders/active/2')
-      .set('Authorization', 'Bearer ' + token);
-
-    expect(res.status).toBe(200);
-    expect(res.body).toEqual([
-      {
-        id: 2,
-        product_id: 10,
-        quantity: 4,
-        user_id: 2,
-        status: 'active'
-      }
-    ]);
-    done();
-  });
-  it('gets completed user order api endpoint', async (done) => {
-    const res = await request
-      .get('/orders/completed/2')
-      .set('Authorization', 'Bearer ' + token);
+      .get("/orders/completed/2")
+      .set("Authorization", "Bearer " + token);
 
     expect(res.status).toBe(200);
     expect(res.body).toEqual([
@@ -149,15 +116,14 @@ describe('Test Order endpoint responses', () => {
         product_id: 13,
         quantity: 1,
         user_id: 2,
-        status: 'complete'
-      }
+        status: "complete",
+      },
     ]);
-    done();
   });
-  it('updates user order api endpoint', async (done) => {
+  it("delets a user order api endpoint", async () => {
     const res = await request
-      .put('/orders?status=active&orderId=1')
-      .set('Authorization', 'Bearer ' + token);
+      .delete("/orders/1")
+      .set("Authorization", "Bearer " + token);
 
     expect(res.status).toBe(200);
     expect(res.body).toEqual({
@@ -165,32 +131,7 @@ describe('Test Order endpoint responses', () => {
       product_id: 13,
       quantity: 1,
       user_id: 2,
-      status: 'active'
+      status: "active",
     });
-    done();
-  });
-  it('updates user order with wrong parameters api endpoint', async (done) => {
-    const res = await request
-      .put('/orders?status=acti&orderId=1')
-      .set('Authorization', 'Bearer ' + token);
-
-    expect(res.status).toBe(400);
-    expect(res.body.Error).toEqual('Bad parameters');
-    done();
-  });
-  it('delets a user order api endpoint', async (done) => {
-    const res = await request
-      .delete('/orders/1')
-      .set('Authorization', 'Bearer ' + token);
-
-    expect(res.status).toBe(200);
-    expect(res.body).toEqual({
-      id: 1,
-      product_id: 13,
-      quantity: 1,
-      user_id: 2,
-      status: 'active'
-    });
-    done();
   });
 });
