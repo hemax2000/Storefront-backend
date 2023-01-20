@@ -11,15 +11,21 @@ connect to the default postgres database as the server's root user psql -U postg
 - create user: CREATE USER owner_user WITH PASSWORD 'password123';
 -creat databases:
 CREATE DATABASE store_db;
+
 CREATE DATABASE store_test_db;
+
 -grant privileges:
 \c store_db
+
 GRANT ALL PRIVILEGES ON DATABASE store_db TO owner_user;
+
 GRANT USAGE, CREATE ON SCHEMA public TO owner_user;
+
 ----------------------------------------------
 
 \c store_test_db
 GRANT ALL PRIVILEGES ON DATABASE store_db TO owner_user;
+
 GRANT USAGE, CREATE ON SCHEMA public TO owner_user;
 
 ### migrations
