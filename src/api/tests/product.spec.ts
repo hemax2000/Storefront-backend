@@ -42,12 +42,18 @@ describe("Test Product endpoint responses", () => {
         category: "phone",
       })
     );
+    spyOn(ProductModel.prototype, "updateProduct").and.returnValue(
+      Promise.resolve({
+        id: 1,
+        name: "iphone",
+        price: 3000,
+        category: "phone",
+      })
+    );
   });
 
   it("gets all products api endpoint", async () => {
-    const res = await request
-      .get("/products")
-      .set("Authorization", "Bearer " + token);
+    const res = await request.get("/products");
 
     expect(res.status).toBe(200);
     expect(res.body).toEqual([
@@ -60,9 +66,7 @@ describe("Test Product endpoint responses", () => {
     ]);
   });
   it("gets product by id api endpoint", async () => {
-    const res = await request
-      .get("/products/1")
-      .set("Authorization", "Bearer " + token);
+    const res = await request.get("/products/1");
 
     expect(res.status).toBe(200);
     expect(res.body).toEqual({
@@ -88,6 +92,19 @@ describe("Test Product endpoint responses", () => {
   it("delete a product api endpoint", async () => {
     const res = await request
       .delete("/products/1")
+      .set("Authorization", "Bearer " + token);
+
+    expect(res.status).toBe(200);
+    expect(res.body).toEqual({
+      id: 1,
+      name: "iphone",
+      price: 3000,
+      category: "phone",
+    });
+  });
+  it("update a product api endpoint", async () => {
+    const res = await request
+      .put("/products/1")
       .set("Authorization", "Bearer " + token);
 
     expect(res.status).toBe(200);

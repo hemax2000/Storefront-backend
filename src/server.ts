@@ -3,9 +3,10 @@ import bodyParser from "body-parser";
 import routes from "./api/routes";
 
 export const app: express.Application = express();
-const address = "localhost:3000";
-
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+
+const address = "localhost:3000";
 
 app.get("/", function (req: Request, res: Response) {
   res.send("Hello World!");

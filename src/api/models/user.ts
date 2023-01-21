@@ -68,7 +68,7 @@ export class UserModel {
       );
     }
   }
-  async deleteUser(id: number): Promise<UserModel> {
+  async deleteUser(id: number): Promise<UserType> {
     try {
       const sql = "DELETE FROM users WHERE id=$1 RETURNING *";
       const conn = await client.connect();

@@ -12,7 +12,7 @@ export const getAllOrders = async (_: Request, res: Response) => {
 
 export const getOrderById = async (req: Request, res: Response) => {
   const orderId: number = parseInt(req.params.id);
-  const currentOrder: OrderType[] = await order.getOrderById(orderId);
+  const currentOrder: OrderType = await order.getOrderById(orderId);
   return res.json(currentOrder);
 };
 

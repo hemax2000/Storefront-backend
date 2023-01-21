@@ -28,7 +28,7 @@ export class OrderModel {
     }
   }
   // get order by order id
-  async getOrderById(id: number): Promise<OrderType[]> {
+  async getOrderById(id: number): Promise<OrderType> {
     try {
       const conn = await client.connect();
       const sql = "SELECT * FROM orders WHERE id=$1";
@@ -77,8 +77,6 @@ export class OrderModel {
     try {
       const conn = await client.connect();
       const sql = "UPDATE orders SET status=$1 WHERE id=$2";
-      console.log(status);
-      console.log(orderId);
       const result = await conn.query(sql, [status, orderId]);
       conn.release();
 
