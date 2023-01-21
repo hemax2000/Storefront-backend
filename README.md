@@ -27,7 +27,7 @@ grant privileges:
 
 - \c store_test_db;
 
-- GRANT ALL PRIVILEGES ON DATABASE store_db TO owner_user;
+- GRANT ALL PRIVILEGES ON DATABASE store_test_db TO owner_user;
 
 - GRANT USAGE, CREATE ON SCHEMA public TO owner_user;
 
@@ -38,6 +38,23 @@ Navigate to the root directory and run the command:
 
 ## dotenv file
 ![image](https://user-images.githubusercontent.com/95032871/213775837-f2c27306-2cb7-494c-9550-0bd8fa6d80c6.png)
+
+HOST=localhost
+
+DB=store_db
+
+DB_TEST=store_test_db
+
+USER=owner_user
+
+PASSWORD=password123
+
+ENV=dev
+
+PEPPER=randomPeper
+
+TOKEN_SECRET=CE677DA24F46CE651691EEA890B8DCCCEB064FBF258BD3A7D67A0C9AAF841F48
+
 
 ## Authorization
 
