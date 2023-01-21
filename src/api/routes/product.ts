@@ -4,12 +4,14 @@ import {
   getByID,
   deleteProduct,
   create,
+  update,
 } from "../controllers/productController";
 import { auth } from "../middlewares/auth";
 
 export const ProductRouter = Router();
 
-ProductRouter.get("/", auth, getAllProducts);
-ProductRouter.get("/:id", auth, getByID);
+ProductRouter.get("/", getAllProducts);
+ProductRouter.get("/:id", getByID);
 ProductRouter.post("/", auth, create);
+ProductRouter.put("/:id", auth, update);
 ProductRouter.delete("/:id", auth, deleteProduct);

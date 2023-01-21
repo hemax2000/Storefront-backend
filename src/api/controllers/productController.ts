@@ -19,8 +19,14 @@ export const create = async (req: Request, res: Response) => {
   return res.json(createdProduct);
 };
 
+export const update = async (req: Request, res: Response) => {
+  const id: number = parseInt(req.params.id);
+  const updatedProduct: ProductType = await product.updateProduct(id, req.body);
+  return res.json(updatedProduct);
+};
+
 export const deleteProduct = async (req: Request, res: Response) => {
   const id: number = parseInt(req.params.id);
-  const deletedOrder = await product.deleteProduct(id);
-  return res.json(deletedOrder);
+  const deletedProduct = await product.deleteProduct(id);
+  return res.json(deletedProduct);
 };

@@ -22,7 +22,7 @@ export class ProductModel {
     }
   }
 
-  // select product by id
+  // select product by product id
   async getProductById(productId: number): Promise<ProductType> {
     try {
       const conn = await client.connect();
@@ -52,6 +52,22 @@ export class ProductModel {
     }
   }
 
+  // update product
+  async updateProduct(id: number, product: ProductType): Promise<ProductType> {
+    try {
+      const { name, price, category } = product;
+      const sql =
+        "UPDATE products SET name = $2, price = $3, category = $4 WHERE id = $1 RETURNING *";
+
+      const conn = await client.connect();
+      const result = await conn.query(sql, [id, name, price, category]);
+      conn.release();
+
+      return result.rows[0];
+    } catch (err) {
+      throw new Error(`Could not update product. Error: ${err}`);
+    }
+  }
   // delete product
   async deleteProduct(id: number): Promise<ProductType> {
     try {

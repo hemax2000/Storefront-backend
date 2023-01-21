@@ -1,23 +1,24 @@
 import { Response, Request } from "express";
 import { OrderModel } from "../models/order";
-import { OrderType } from "../models/order";
+import { OrderType, OrderToProductType } from "../models/order";
 
 const order: OrderModel = new OrderModel();
 
 // Get all orders by user id
-export const getAllOrders = async (req: Request, res: Response) => {
-  const userId: number = parseInt(req.params.user_id);
-  const currentOrder: OrderType[] = await order.getOrders(userId);
+export const getAllOrders = async (_: Request, res: Response) => {
+  const allOrders: OrderType[] = await order.getOrders();
+  return res.json(allOrders);
+};
+
+export const getOrderById = async (req: Request, res: Response) => {
+  const orderId: number = parseInt(req.params.id);
+  const currentOrder: OrderType[] = await order.getOrderById(orderId);
   return res.json(currentOrder);
 };
 
 // Get all completed orders by user id
-
-export const getAllCompletedOrders = async (req: Request, res: Response) => {
-  const userId: number = parseInt(req.params.user_id);
-  const currentOrder: OrderType[] = await order.getCompletedOrdersByUserId(
-    userId
-  );
+export const getAllCompletedOrders = async (_: Request, res: Response) => {
+  const currentOrder: OrderType[] = await order.getCompletedOrdersByUserId();
   return res.json(currentOrder);
 };
 
@@ -48,4 +49,14 @@ export const deleteOrder = async (req: Request, res: Response) => {
 export const create = async (req: Request, res: Response) => {
   const newOrder: OrderType = await order.createOrder(req.body);
   return res.json(newOrder);
+};
+
+// create order
+export const addProduct = async (req: Request, res: Response) => {
+  const id: number = parseInt(req.params.id);
+  const newProduct: OrderToProductType = await order.addProductToOrder(
+    id,
+    req.body
+  );
+  return res.json(newProduct);
 };
