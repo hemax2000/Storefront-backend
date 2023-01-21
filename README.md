@@ -56,6 +56,17 @@ body: {
 
 - get all users: [get] http://localhost:3000/users
 
+- update user by id: [put] http://localhost:3000/users/1
+
+body: {
+    "firstname":"ibrahim",
+    "lastname":"alnumair",
+    "password":"12345678"
+}
+
+- delete user: [delete] http://localhost:3000/users/1
+
+
 ----------------------------------------------------
 
 - create product: [post] http://localhost:3000/products
@@ -72,13 +83,19 @@ body: {
 
 - delete product: [delete] http://localhost:3000/products/1
 
+- update product: [put] http://localhost:3000/products/1
+
+body: {
+    "name":"iphone",
+    "price":"500",
+    "category":"phone"
+}
+
 -------------------------------------------------------------
 
 - create order: [post] http://localhost:3000/orders
 
 body: {
-    "product_id":"2",
-    "quantity":"2",
     "user_id":"1",
     "status":"active"
 }
@@ -89,6 +106,18 @@ body: {
     "status":"complete"
 }
 
-- get completed order bu user id: http://localhost:3000/orders/completed/1
+- get all orders: [get] http://localhost:3000/orders
 
-- delete product: [delete] http://localhost:3000/orders/1
+- get order by id: [get] http://localhost:3000/orders/1
+
+- get all completed order: [get] http://localhost:3000/orders/completed
+
+- delete order: [delete] http://localhost:3000/orders/1
+
+- add product to order: [post] http://localhost:3000/orders/1
+
+body: {
+    "product_id":"2",
+    "quantity":"5"
+}
+
