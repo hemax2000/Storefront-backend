@@ -16,13 +16,17 @@ export const create = async (req: Request, res: Response) => {
     const token = jwt.sign({ user: { id: createduser.id } }, TOKEN_SECRET);
     return res.json(token);
   } catch (error) {
-    return res.status(500).json("Failed to create user");
+    return res.status(500).json("Failed to create user. error:" + error);
   }
 };
 
 export const getAllUsers = async (_: Request, res: Response) => {
-  const allUsers: UserType[] = await User.getUsers();
-  return res.json(allUsers);
+  try {
+    const allUsers: UserType[] = await User.getUsers();
+    return res.json(allUsers);
+  } catch (error) {
+    return res.status(500).json("Failed to get all user. error:" + error);
+  }
 };
 
 export const update = async (req: Request, res: Response) => {
@@ -35,12 +39,16 @@ export const update = async (req: Request, res: Response) => {
     const token = jwt.sign({ user: { id: updatedUser.id } }, TOKEN_SECRET);
     return res.json(token);
   } catch (error) {
-    return res.status(500).json("Failed to update user");
+    return res.status(500).json("Failed to update user. error:" + error);
   }
 };
 
 export const deleteUser = async (req: Request, res: Response) => {
-  const id: number = parseInt(req.params.id);
-  const deletedUser = await User.deleteUser(id);
-  return res.json(deletedUser);
+  try {
+    const id: number = parseInt(req.params.id);
+    const deletedUser = await User.deleteUser(id);
+    return res.json(deletedUser);
+  } catch (error) {
+    return res.status(500).json("Failed to delete user. error:" + error);
+  }
 };
