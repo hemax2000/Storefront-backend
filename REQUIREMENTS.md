@@ -5,20 +5,26 @@ These are the notes from a meeting with the frontend developer that describe wha
 
 ## API Endpoints
 #### Products
-- Index 
-- Show
-- Create [token required]
-- [OPTIONAL] Top 5 most popular products 
-- [OPTIONAL] Products by category (args: product category)
+- show all products
+- find products by id
+- creat product
+- update product
+- delete product
 
 #### Users
-- Index [token required]
-- Show [token required]
-- Create N[token required]
+- create user
+- show all users
+- update user
+- delete user
 
 #### Orders
-- Current Order by user (args: user id)[token required]
-- [OPTIONAL] Completed Orders by user (args: user id)[token required]
+- show all orders
+- show all completed orders
+- find order by id
+- update order status
+- delete order
+- add product to order
+- create order
 
 ## Data Shapes
 #### Product
@@ -27,16 +33,39 @@ These are the notes from a meeting with the frontend developer that describe wha
 - price
 - [OPTIONAL] category
 
+schema:
+
+![image](https://user-images.githubusercontent.com/95032871/213930491-93c38ca9-9e4a-412f-951d-fbd4d7306c5e.png)
+
+
 #### User
 - id
 - firstName
 - lastName
 - password
 
+schema:
+
+![image](https://user-images.githubusercontent.com/95032871/213930513-78b66479-4817-4eab-8903-7280504bc9c9.png)
+
+
 #### Orders
 - id
-- id of each product in the order
-- quantity of each product in the order
 - user_id
 - status of order (active or complete)
+
+schema:
+
+![image](https://user-images.githubusercontent.com/95032871/213930530-e799c4e7-8f1c-4a63-8e7d-03dc9f751f81.png)
+
+
+#### Order-Products
+- id
+- product_id
+- order_id
+- quantity 
+
+schema:
+
+![image](https://user-images.githubusercontent.com/95032871/213930564-5721655c-6414-48fa-ab53-6446bfa8627a.png)
 

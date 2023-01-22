@@ -55,6 +55,11 @@ PEPPER=randomPeper
 
 TOKEN_SECRET=CE677DA24F46CE651691EEA890B8DCCCEB064FBF258BD3A7D67A0C9AAF841F48
 
+----------------------------------------------------
+
+Server running on PORT: *3000*
+
+Database running on PORT: *5432*
 
 ## Authorization
 
